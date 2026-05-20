@@ -1,0 +1,34 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_n8n
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD=${DB_MYSQLDB_ROOT_PASSWORD}
+      MYSQL_DATABASE=${DB_MYSQLDB_DATABASE}
+      MYSQL_USER=${DB_MYSQLDB_USER}
+      MYSQL_PASSWORD=${DB_MYSQLDB_PASSWORD}
+    env_file:
+      - .env # Renomer o arquivo .env.examplo para .env e alterar as configurações
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  n8n:
+    image: aaoliveira/n8n-mysql:1.0
+    container_name: n8n_app
+    restart: always
+    user: root
+    depends_on:
+      - mysql
+    ports:
+      - "5678:5678"
+    env_file:
+      - .env # Renomer o arquivo .env.examplo para .env e alterar as configurações
+    volumes:
+      - ./data:/home/node/.n8n
+
+volumes:
+  mysql_data:
