@@ -9,7 +9,7 @@ services:
       - MYSQL_USER=n8n
       - MYSQL_PASSWORD=root
     ports:
-      - "3307:3306"
+      - "3307:3306" # Por padrão a porta do mysql é 3306, mas na máquina local para evitar conflito com outros mysqls já instalados na máquina, usei 3307
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql_data:/var/lib/mysql
@@ -22,7 +22,7 @@ services:
     depends_on:
       - mysql
     ports:
-      - "5679:5678" # Mantemos a 5679 para você acessar no navegador
+      - "5679:5678" # Por padrão a porta do n8n é 5678, mas na máquina local para evitar conflito com outros n8ns já instalados na máquina, usei 5679
     env_file:
       - .env
     environment:
