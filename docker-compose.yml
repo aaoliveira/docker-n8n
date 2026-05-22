@@ -1,7 +1,7 @@
 services:
   mysql:
     image: mysql:8.0
-    container_name: mysql_n8n
+    container_name: mysql_n8n # Nome padrão, caso já tenha um container com esse nome na máquina, use outro nome
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -16,7 +16,7 @@ services:
 
   n8n:
     image: aaoliveira/n8n-mysql:1.0
-    container_name: n8n_app
+    container_name: n8n_app # Nome padrão, caso já tenha um container com esse nome na máquina, use outro nome
     restart: always
     user: root
     depends_on:
